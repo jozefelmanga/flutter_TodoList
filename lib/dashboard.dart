@@ -34,14 +34,18 @@ class _DashboardState extends State<Dashboard> {
   void initSharedPref() async {
     prefs = await SharedPreferences.getInstance();
   }
+
   void addTodo() async {
     if (_todoItem.text.isNotEmpty) {
       var regBody = {
         "item": _todoItem.text,
       };
 
-      var response = await http.post(Uri.parse('$apiTodos/$userId'),
-          headers: {"Content-Type": "application/json"},
+      var response = await http.post(Uri.parse(apiTodos),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${widget.token}"
+          },
           body: jsonEncode(regBody));
 
       var jsonResponse = jsonDecode(response.body);
@@ -60,8 +64,11 @@ class _DashboardState extends State<Dashboard> {
 
   void getTodoList(userId) async {
     var response = await http.get(
-      Uri.parse('$apiTodos/$userId'),
-      headers: {"Content-Type": "application/json"},
+      Uri.parse(apiTodos),
+       headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${widget.token}"
+          },
     );
 
     var jsonResponse = jsonDecode(response.body);
@@ -78,7 +85,10 @@ class _DashboardState extends State<Dashboard> {
   void deleteItem(id) async {
     var response = await http.delete(
       Uri.parse('$apiTodos/$id'),
-      headers: {"Content-Type": "application/json"},
+       headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${widget.token}"
+          },
     );
 
     var jsonResponse = jsonDecode(response.body);
@@ -87,21 +97,21 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-void logout() {
-  prefs.remove('token');
-  // Navigate to the login screen and replace the current route
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => SignInPage()),
-  );
-}
+  void logout() {
+    prefs.remove('token');
+    // Navigate to the login screen and replace the current route
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => SignInPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
-         automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
