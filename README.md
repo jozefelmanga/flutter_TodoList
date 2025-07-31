@@ -6,6 +6,17 @@ A modern, cross-platform Todo list application built with Flutter that helps use
 
 This Flutter Todo application is designed to provide users with a seamless task management experience. It combines modern UI design with robust functionality, including user registration, secure login, and comprehensive todo management capabilities.
 
+## 📊 Project Presentation
+
+For a detailed overview of the project, including architecture, features, and implementation details, check out our project presentation:
+
+**[📋 View Project Presentation](https://drive.google.com/file/d/16r4y7z8EMp9EoHhYVVYnyUaJO5k-_Ay9/view?usp=sharing)**
+
+*The presentation covers:*
+- Project architecture and design decisions
+- Technology stack overview
+- Feature demonstrations
+
 ## ✨ Key Features
 
 ### 🔐 Authentication & Security
